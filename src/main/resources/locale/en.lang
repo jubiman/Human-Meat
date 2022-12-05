@@ -1,0 +1,20 @@
+[item]
+cookedhumanmeat=Cooked Human Meat
+humanmeat=Human Meat
+
+[buff]
+sanity=Insane
+
+[buffmodifiers]
+sanity=%d sanity
+
+[mob]
+harmlessfrozendwarf=Frozen Dwarf
+harmlessvoidapprentice=Void Apprentice
+harmlessvampire=Vampire
+harmlessninja=Ninja
+harmlessswampcavespider=Swamp Cave Spider
+harmlessgiantcavespider=Giant Cave Spider
+harmlessblackcavespider=Black Cave Spider
+harmlesssandspirit=Sand Spirit
+harmlessdeepcavespirit=Deep Cave Spirit
