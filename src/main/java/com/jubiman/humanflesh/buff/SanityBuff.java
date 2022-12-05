@@ -63,6 +63,8 @@ public class SanityBuff extends Buff {
 			userMap.put(buff.owner.getID(), sanity);
 		else userMap.replace(buff.owner.getID(), sanity);
 
+		if (sanity < 0)
+			buff.getGndData().setInt("sanity", sanity = 0);
 		if (sanity < 33) {
 			this.isVisible = true;
 			// TODO: fix mobs
