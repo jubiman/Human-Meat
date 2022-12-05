@@ -19,11 +19,11 @@ import necesse.inventory.recipe.Ingredient;
 import necesse.inventory.recipe.Recipe;
 import necesse.inventory.recipe.Recipes;
 
-import java.util.Arrays;
 
 @ModEntry
 public class HumanFlesh {
 	public void init() {
+		System.out.println("Human flesh init");
 		// Register sanity buff
 		BuffRegistry.registerBuff("sanity", new SanityBuff());
 

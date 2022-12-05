@@ -78,7 +78,6 @@ public class SanityBuff extends Buff {
 					MobChance randomMob = spawnTable.getRandomMob(buff.owner.getLevel(), null, tile, GameRandom.globalRandom);
 					if (randomMob != null) {
 						Mob mob = randomMob.getMob(buff.owner.getLevel(), null, tile);
-						System.out.println(mob);
 						mob.setLevel(buff.owner.getLevel());
 						buff.owner.getLevel().entityManager.addMob(mob, tile.x, tile.y);
 						if (mob.getLevel().isServerLevel())

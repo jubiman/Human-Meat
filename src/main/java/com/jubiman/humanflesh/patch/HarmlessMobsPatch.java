@@ -12,8 +12,9 @@ public class HarmlessMobsPatch {
 	@Advice.OnMethodEnter
 	static void onEnter(@Advice.This Mob mob, @Advice.Argument(0) MobHitEvent event, @Advice.Argument(1) Attacker attacker) {
 		if (attacker != null && attacker.getAttackOwner() instanceof HarmlessMobs.Harmless) {
-			// TODO: Find out if I can hide the damage numbers (doesn't check if it's prevented)
 			event.prevent();
+			event.showDamageTip = false;
+			event.playHitSound = false;
 		}
 	}
 }
