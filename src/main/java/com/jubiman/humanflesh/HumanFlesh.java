@@ -5,16 +5,15 @@ import com.jubiman.humanflesh.command.SanityCommand;
 import com.jubiman.humanflesh.item.CookedHumanMeat;
 import com.jubiman.humanflesh.item.HumanMeat;
 import com.jubiman.humanflesh.mob.HarmlessMobs;
+import com.jubiman.humanflesh.mob.human.ManiacHumanMob;
+import com.jubiman.humanflesh.mob.settler.ManiacSettler;
 import com.jubiman.humanflesh.utils.EnumHelper;
 import necesse.engine.GameRaidFrequency;
 import necesse.engine.commands.CommandsManager;
 import necesse.engine.localization.message.GameMessage;
 import necesse.engine.localization.message.LocalMessage;
 import necesse.engine.modLoader.annotations.ModEntry;
-import necesse.engine.registries.BuffRegistry;
-import necesse.engine.registries.ItemRegistry;
-import necesse.engine.registries.MobRegistry;
-import necesse.engine.registries.RecipeTechRegistry;
+import necesse.engine.registries.*;
 import necesse.inventory.recipe.Ingredient;
 import necesse.inventory.recipe.Recipe;
 import necesse.inventory.recipe.Recipes;
@@ -41,6 +40,14 @@ public class HumanFlesh {
 		MobRegistry.registerMob("harmlessblackcavespider", HarmlessMobs.BlackCaveSpiderMob.class, true);
 		MobRegistry.registerMob("harmlesssandspirit", HarmlessMobs.SandSpiritMob.class, true);
 		MobRegistry.registerMob("harmlessdeepcavespirit", HarmlessMobs.DeepCaveSpiritMob.class, true);
+
+		// Maniac
+		MobRegistry.registerMob("maniachuman", ManiacHumanMob.class, true);
+		SettlerRegistry.registerSettler("maniac", new ManiacSettler());
+	}
+
+	public void initResources() {
+		ManiacHumanMob.texture = MobRegistry.Textures.humanTextureFull("humans/maniac");
 	}
 
 	public void postInit() {
@@ -55,6 +62,7 @@ public class HumanFlesh {
 		).showAfter("cappuccino"));
 
 		CommandsManager.registerServerCommand(new SanityCommand());
+
 		// Add new OFTEN field to GameRaidFrequency
 		EnumHelper.addEnum(GameRaidFrequency.class, "OFTEN", new Class[] {GameMessage.class, GameMessage.class}, new LocalMessage("ui", "raidsoften"), null);
 	}

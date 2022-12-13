@@ -22,7 +22,7 @@ import java.util.HashMap;
 public class SanityBuff extends Buff {
 	private int ticksSinceLastHallucination = 0;
 	private int nextHallucination = 3333; // TODO: add save info?
-	private int nextSanityIncrease = 1000;
+	private int nextSanityIncrease = 1200;
 	private final MobSpawnTable spawnTable = new MobSpawnTable();
 	public static final HashMap<Integer, Integer> userMap = new HashMap<>(); // used to keep sanity data after death
 	// TODO: somehow save this after restart?
@@ -67,11 +67,10 @@ public class SanityBuff extends Buff {
 			buff.getGndData().setInt("sanity", sanity = 0);
 		if (sanity < 33) {
 			this.isVisible = true;
-			// TODO: fix mobs
 			if (ticksSinceLastHallucination >= nextHallucination) {
 				ticksSinceLastHallucination = 0;
 				nextHallucination = GameRandom.globalRandom.getIntBetween(1200, 6000); // 60s -> 300s (assuming 20 TPS)
-				for (int times = GameRandom.globalRandom.getIntBetween(1, 6 - sanity / 6); times > 0; --times) {
+				for (int times = GameRandom.globalRandom.getIntBetween(5, 10 - sanity / 6); times > 0; --times) {
 					Point tile = buff.owner.getMapPos();
 					tile.x += GameRandom.globalRandom.getIntBetween(-100, 100);
 					tile.y += GameRandom.globalRandom.getIntBetween(-100, 100);
@@ -82,7 +81,7 @@ public class SanityBuff extends Buff {
 						buff.owner.getLevel().entityManager.addMob(mob, tile.x, tile.y);
 						if (mob.getLevel().isServerLevel())
 							buff.owner.getLevel().getServer().network.sendToClientsAt(new PacketSpawnMob(mob), mob.getLevel());
-						if (mob instanceof PirateMob) return; // don't want more mobs after a boss lmao
+						//if (mob instanceof PirateMob) return; // don't want more mobs after a boss lmao
 					}
 				}
 			} else ++ticksSinceLastHallucination;
