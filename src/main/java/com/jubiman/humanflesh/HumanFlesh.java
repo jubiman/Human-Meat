@@ -14,6 +14,8 @@ import necesse.engine.localization.message.GameMessage;
 import necesse.engine.localization.message.LocalMessage;
 import necesse.engine.modLoader.annotations.ModEntry;
 import necesse.engine.registries.*;
+import necesse.entity.mobs.hostile.HumanRaiderMob;
+import necesse.inventory.lootTable.lootItem.LootItem;
 import necesse.inventory.recipe.Ingredient;
 import necesse.inventory.recipe.Recipe;
 import necesse.inventory.recipe.Recipes;
@@ -61,6 +63,7 @@ public class HumanFlesh {
 				}
 		).showAfter("cappuccino"));
 
+		HumanRaiderMob.lootTable.items.add(LootItem.between("humanmeat", 1, 10));
 		CommandsManager.registerServerCommand(new SanityCommand());
 
 		// Add new OFTEN field to GameRaidFrequency
