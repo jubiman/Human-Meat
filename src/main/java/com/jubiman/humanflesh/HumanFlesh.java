@@ -15,6 +15,8 @@ import necesse.engine.registries.BuffRegistry;
 import necesse.engine.registries.ItemRegistry;
 import necesse.engine.registries.MobRegistry;
 import necesse.engine.registries.RecipeTechRegistry;
+import necesse.entity.mobs.hostile.HumanRaiderMob;
+import necesse.inventory.lootTable.lootItem.LootItem;
 import necesse.inventory.recipe.Ingredient;
 import necesse.inventory.recipe.Recipe;
 import necesse.inventory.recipe.Recipes;
@@ -54,6 +56,7 @@ public class HumanFlesh {
 				}
 		).showAfter("cappuccino"));
 
+		HumanRaiderMob.lootTable.items.add(LootItem.between("humanmeat", 1, 10));
 		CommandsManager.registerServerCommand(new SanityCommand());
 		// Add new OFTEN field to GameRaidFrequency
 		EnumHelper.addEnum(GameRaidFrequency.class, "OFTEN", new Class[] {GameMessage.class, GameMessage.class}, new LocalMessage("ui", "raidsoften"), null);
