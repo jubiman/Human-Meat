@@ -1,5 +1,6 @@
 package com.jubiman.humanflesh.command;
 
+import com.jubiman.humanflesh.sanity.SanityPlayers;
 import necesse.engine.commands.CmdParameter;
 import necesse.engine.commands.CommandLog;
 import necesse.engine.commands.ModularChatCommand;
@@ -17,21 +18,20 @@ public class SanityCommand extends ModularChatCommand {
 
 	@Override
 	public void runModular(Client client, Server server, ServerClient serverClient, Object[] args, String[] errors, CommandLog commandLog) {
-		int i = serverClient.playerMob.buffManager.getBuff("sanity").getGndData().getInt("sanity");
 		switch ((String) args[0]) {
 			case "set":
-				serverClient.playerMob.buffManager.getBuff("sanity").getGndData().setInt("sanity", (int) args[1]);
+				SanityPlayers.get(serverClient.authentication).setSanity((int) args[1]);
 				break;
 			case "add":
-				serverClient.playerMob.buffManager.getBuff("sanity").getGndData().setInt("sanity", (int) args[1] + i);
+				SanityPlayers.get(serverClient.authentication).addSanity((int) args[1]);
 				break;
 			case "remove":
-				serverClient.playerMob.buffManager.getBuff("sanity").getGndData().setInt("sanity", i - (int) args[1]);
+				SanityPlayers.get(serverClient.authentication).removeSanity((int) args[1]);
 				break;
 			case "get":
-				commandLog.add("Sanity: " + i);
+				commandLog.add("Sanity: " + SanityPlayers.get(serverClient.authentication).getSanity());
 				return;
 		}
-		commandLog.add("Sanity set to " + serverClient.playerMob.buffManager.getBuff("sanity").getGndData().getInt("sanity"));
+		commandLog.add("Sanity set to " + SanityPlayers.get(serverClient.authentication).getSanity());
 	}
 }

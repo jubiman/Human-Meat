@@ -1,7 +1,7 @@
 package com.jubiman.humanflesh.item;
 
+import com.jubiman.humanflesh.sanity.SanityPlayers;
 import necesse.engine.localization.Localization;
-import necesse.engine.network.gameNetworkData.GNDItemMap;
 import necesse.entity.mobs.PlayerMob;
 import necesse.gfx.GameColor;
 import necesse.gfx.gameTooltips.ListGameTooltips;
@@ -19,12 +19,9 @@ public class HumanMeat extends FoodConsumableItem {
 	@Override
 	public boolean consume(Level level, PlayerMob player, InventoryItem item) {
 		boolean consumed = super.consume(level, player, item);
-		if (consumed) {
-			GNDItemMap gnd = player.buffManager.getBuff("sanity").getGndData();
-			if (!gnd.hasKey("sanity"))
-				gnd.setInt("sanity", 80);
-			else gnd.setInt("sanity", gnd.getInt("sanity") - 20);
-		}
+		if (consumed)
+			if (player.isServerClient())
+				SanityPlayers.get(player.getServerClient().authentication).removeSanity(10);
 		return consumed;
 	}
 

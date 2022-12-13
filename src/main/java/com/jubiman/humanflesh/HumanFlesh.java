@@ -1,17 +1,16 @@
 package com.jubiman.humanflesh;
 
-import com.jubiman.humanflesh.buff.SanityBuff;
 import com.jubiman.humanflesh.command.SanityCommand;
 import com.jubiman.humanflesh.item.CookedHumanMeat;
 import com.jubiman.humanflesh.item.HumanMeat;
 import com.jubiman.humanflesh.mob.HarmlessMobs;
+import com.jubiman.humanflesh.sanity.SanityPlayers;
 import com.jubiman.humanflesh.utils.EnumHelper;
 import necesse.engine.GameRaidFrequency;
 import necesse.engine.commands.CommandsManager;
 import necesse.engine.localization.message.GameMessage;
 import necesse.engine.localization.message.LocalMessage;
 import necesse.engine.modLoader.annotations.ModEntry;
-import necesse.engine.registries.BuffRegistry;
 import necesse.engine.registries.ItemRegistry;
 import necesse.engine.registries.MobRegistry;
 import necesse.engine.registries.RecipeTechRegistry;
@@ -26,8 +25,8 @@ import necesse.inventory.recipe.Recipes;
 public class HumanFlesh {
 	public void init() {
 		System.out.println("Human flesh init");
-		// Register sanity buff
-		BuffRegistry.registerBuff("sanity", new SanityBuff());
+
+		SanityPlayers.init();
 
 		// Register item
 		ItemRegistry.registerItem("humanmeat", new HumanMeat(), 100, true);
@@ -56,8 +55,12 @@ public class HumanFlesh {
 				}
 		).showAfter("cappuccino"));
 
+		// Fix raider mob loot table since, the patch doesn't work on this (probably because of overwrite)
 		HumanRaiderMob.lootTable.items.add(LootItem.between("humanmeat", 1, 10));
+
+		// Register (debug) command
 		CommandsManager.registerServerCommand(new SanityCommand());
+
 		// Add new OFTEN field to GameRaidFrequency
 		EnumHelper.addEnum(GameRaidFrequency.class, "OFTEN", new Class[] {GameMessage.class, GameMessage.class}, new LocalMessage("ui", "raidsoften"), null);
 	}

@@ -1,7 +1,7 @@
 package com.jubiman.humanflesh.item;
 
+import com.jubiman.humanflesh.sanity.SanityPlayers;
 import necesse.engine.localization.Localization;
-import necesse.engine.network.gameNetworkData.GNDItemMap;
 import necesse.entity.mobs.PlayerMob;
 import necesse.gfx.GameColor;
 import necesse.gfx.gameTooltips.ListGameTooltips;
@@ -13,18 +13,15 @@ import necesse.level.maps.levelData.settlementData.settler.Settler;
 public class CookedHumanMeat extends FoodConsumableItem {
 	public CookedHumanMeat() {
 		super(50, Rarity.LEGENDARY, Settler.FOOD_GOURMET, 66, 0);
-		this.debuff();
+		this.debuff().setItemCategory("consumable", "food");
 	}
 
 	@Override
 	public boolean consume(Level level, PlayerMob player, InventoryItem item) {
 		boolean consumed = super.consume(level, player, item);
-		if (consumed) {
-			GNDItemMap gnd = player.buffManager.getBuff("sanity").getGndData();
-			if (!gnd.hasKey("sanity"))
-				gnd.setInt("sanity", 90);
-			else gnd.setInt("sanity", gnd.getInt("sanity") - 10);
-		}
+		if (consumed)
+			if (player.isServerClient())
+				SanityPlayers.get(player.getServerClient().authentication).removeSanity(10);
 		return consumed;
 	}
 

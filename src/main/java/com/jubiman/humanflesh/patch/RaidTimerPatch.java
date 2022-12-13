@@ -11,6 +11,6 @@ public class RaidTimerPatch {
 	@Advice.OnMethodExit
 	static void onExit(@Advice.This SettlementLevelData data, @Advice.Argument(1) boolean onlyIfShorter, @Advice.FieldValue(value = "nextRaid", readOnly = false) long nextRaid) {
 		if (!onlyIfShorter && data.getLevel().getWorldSettings().raidFrequency == GameRaidFrequency.valueOf("OFTEN"))
-			nextRaid /= 10;
+			nextRaid = nextRaid / 10 + 300;
 	}
 }
