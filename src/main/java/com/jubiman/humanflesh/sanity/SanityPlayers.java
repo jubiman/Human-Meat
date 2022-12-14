@@ -75,11 +75,14 @@ public class SanityPlayers {
 			player.addSaveData(save);
 
 		saveData.addSaveData(save);
-		userMap.clear(); // avoid overwriting other worlds
 	}
 
 	public static void load(LoadData loadData) {
 		for (LoadData data : loadData.getLoadData())
 			get(Long.parseLong(data.getName())).load(data);
+	}
+
+	public static void stop() {
+		userMap.clear(); // avoid overwriting other worlds
 	}
 }

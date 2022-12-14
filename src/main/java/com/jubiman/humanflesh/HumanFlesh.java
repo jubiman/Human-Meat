@@ -6,8 +6,11 @@ import com.jubiman.humanflesh.item.HumanMeat;
 import com.jubiman.humanflesh.mob.HarmlessMobs;
 import com.jubiman.humanflesh.sanity.SanityPlayers;
 import com.jubiman.humanflesh.utils.EnumHelper;
+import necesse.engine.GameEventListener;
+import necesse.engine.GameEvents;
 import necesse.engine.GameRaidFrequency;
 import necesse.engine.commands.CommandsManager;
+import necesse.engine.events.ServerStopEvent;
 import necesse.engine.localization.message.GameMessage;
 import necesse.engine.localization.message.LocalMessage;
 import necesse.engine.modLoader.annotations.ModEntry;
@@ -42,6 +45,14 @@ public class HumanFlesh {
 		MobRegistry.registerMob("harmlessblackcavespider", HarmlessMobs.BlackCaveSpiderMob.class, true);
 		MobRegistry.registerMob("harmlesssandspirit", HarmlessMobs.SandSpiritMob.class, true);
 		MobRegistry.registerMob("harmlessdeepcavespirit", HarmlessMobs.DeepCaveSpiritMob.class, true);
+
+		// Event listeners
+		GameEvents.addListener(ServerStopEvent.class, new GameEventListener<ServerStopEvent>() {
+			@Override
+			public void onEvent(ServerStopEvent e) {
+				SanityPlayers.stop();
+			}
+		});
 	}
 
 	public void postInit() {
