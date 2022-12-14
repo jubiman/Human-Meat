@@ -32,8 +32,8 @@ public class HumanFlesh {
 		SanityPlayers.init();
 
 		// Register item
-		ItemRegistry.registerItem("humanmeat", new HumanMeat(), 100, true);
-		ItemRegistry.registerItem("cookedhumanmeat", new CookedHumanMeat(), 111, true);
+		ItemRegistry.registerItem("humanmeat", new HumanMeat(), 50, true);
+		ItemRegistry.registerItem("cookedhumanmeat", new CookedHumanMeat(), 77, true);
 
 		// Register harmless mobs
 		MobRegistry.registerMob("harmlessfrozendwarf", HarmlessMobs.FrozenDwarfMob.class, true);
@@ -67,7 +67,7 @@ public class HumanFlesh {
 		).showAfter("cappuccino"));
 
 		// Fix raider mob loot table since, the patch doesn't work on this (probably because of overwrite)
-		HumanRaiderMob.lootTable.items.add(LootItem.between("humanmeat", 1, 10));
+		HumanRaiderMob.lootTable.items.add(LootItem.between("humanmeat", 1, 5));
 
 		// Register (debug) command
 		CommandsManager.registerServerCommand(new SanityCommand());
