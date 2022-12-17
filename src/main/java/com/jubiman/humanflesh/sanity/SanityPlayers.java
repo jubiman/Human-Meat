@@ -1,7 +1,7 @@
 package com.jubiman.humanflesh.sanity;
 
 import com.jubiman.customplayerlib.CustomPlayerRegistry;
-import com.jubiman.customplayerlib.CustomPlayers;
+import com.jubiman.customplayerlib.CustomPlayersTickable;
 import com.jubiman.humanflesh.mob.HarmlessMobs;
 import necesse.engine.network.server.ServerClient;
 import necesse.entity.mobs.Mob;
@@ -12,7 +12,7 @@ import necesse.level.maps.biomes.MobSpawnTable;
 
 import java.awt.*;
 
-public class SanityPlayers extends CustomPlayers<SanityPlayer> {
+public class SanityPlayers extends CustomPlayersTickable<SanityPlayer> {
 	public static final String name = "SANITYPLAYERS";
 	public static final MobSpawnTable spawnTable = new MobSpawnTable();
 

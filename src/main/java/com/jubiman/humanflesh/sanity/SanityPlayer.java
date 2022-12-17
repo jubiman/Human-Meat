@@ -1,6 +1,7 @@
 package com.jubiman.humanflesh.sanity;
 
-import com.jubiman.customplayerlib.CustomPlayer;
+import com.jubiman.customplayerlib.CustomPlayerTickable;
+import necesse.engine.network.client.Client;
 import necesse.engine.network.packet.PacketMobBuff;
 import necesse.engine.network.packet.PacketSpawnMob;
 import necesse.engine.network.server.Server;
@@ -16,7 +17,7 @@ import necesse.level.maps.biomes.MobChance;
 
 import java.awt.*;
 
-public class SanityPlayer extends CustomPlayer {
+public class SanityPlayer extends CustomPlayerTickable {
 	public int ticksSinceLastHallucination;
 	public int nextHallucination;
 	public int nextSanityIncrease;
@@ -30,7 +31,8 @@ public class SanityPlayer extends CustomPlayer {
 		sanity = 100;
 	}
 
-	public void tick(Server server) {
+	@Override
+	public void serverTick(Server server) {
 		PlayerMob player = server.getPlayerByAuth(auth);
 		if (sanity < 33) {
 			if (!player.buffManager.hasBuff("insanityindicatorbuff"))
@@ -69,6 +71,10 @@ public class SanityPlayer extends CustomPlayer {
 			++sanity;
 			if (sanity > 100) sanity = 100;
 		} else --nextSanityIncrease;
+	}
+
+	@Override
+	public void clientTick(Client client) {
 	}
 
 	public void setSanity(int amount) {

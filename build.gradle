@@ -46,6 +46,9 @@ setTargetCompatibility(JavaVersion.VERSION_1_8)
 
 repositories {
     mavenCentral()
+    maven {
+        url "https://s01.oss.sonatype.org/content/repositories/releases/"
+    }
 }
 
 sourceSets.main.output.resourcesDir = file("build/mod/resources/")
@@ -63,7 +66,7 @@ dependencies {
     implementation fileTree(gameDirectory + "/lib/")
     implementation fileTree("./mods/") // Add all mods located in local mods folder
 
-    compileOnly "com.jubiman:customplayerlib:1.4"
+    compileOnly "com.jubiman:customplayerlib:1.5"
 }
 
 task createAppID {
