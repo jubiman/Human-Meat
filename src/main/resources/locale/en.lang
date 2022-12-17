@@ -3,7 +3,8 @@ cookedhumanmeat=Cooked Human Meat
 humanmeat=Human Meat
 
 [buff]
-sanity=Insane
+insanityindicatorbuff=Insanity
+insanityindicatorbufftooltip=You start hallucinating.
 
 [buffmodifiers]
 sanity=%d sanity

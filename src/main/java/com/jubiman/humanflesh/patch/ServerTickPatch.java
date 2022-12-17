@@ -13,7 +13,7 @@ public class ServerTickPatch {
 		for (int i = 0; i < server.getPlayersOnline(); ++i) {
 			PlayerMob player = server.getPlayer(i);
 			if (player.isServerClient())
-				SanityPlayers.get(player.getServerClient().authentication).tick(server);
+				SanityPlayers.getPlayer(player.getServerClient().authentication).tick(server);
 		}
 	}
 }

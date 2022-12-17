@@ -1,28 +1,30 @@
 package com.jubiman.humanflesh.sanity;
 
+import com.jubiman.customplayerlib.CustomPlayer;
+import necesse.engine.network.client.Client;
+import necesse.engine.network.packet.PacketMobBuff;
 import necesse.engine.network.packet.PacketSpawnMob;
 import necesse.engine.network.server.Server;
 import necesse.engine.save.LoadData;
-import necesse.engine.save.SaveComponent;
 import necesse.engine.save.SaveData;
 import necesse.engine.util.GameRandom;
 import necesse.entity.mobs.Mob;
 import necesse.entity.mobs.PlayerMob;
+import necesse.entity.mobs.buffs.ActiveBuff;
 import necesse.entity.mobs.hostile.pirates.PirateMob;
 import necesse.level.maps.Level;
 import necesse.level.maps.biomes.MobChance;
 
 import java.awt.*;
 
-public class SanityPlayer {
+public class SanityPlayer extends CustomPlayer {
 	public int ticksSinceLastHallucination;
 	public int nextHallucination;
 	public int nextSanityIncrease;
 	private byte sanity;
-	private final long auth;
 
 	public SanityPlayer(long auth) {
-		this.auth = auth;
+		super(auth);
 		ticksSinceLastHallucination = 0;
 		nextHallucination = 3333;
 		nextSanityIncrease = 1200;
@@ -30,12 +32,19 @@ public class SanityPlayer {
 	}
 
 	public void tick(Server server) {
+		PlayerMob player = server.getPlayerByAuth(auth);
 		if (sanity < 33) {
+			if (!player.buffManager.hasBuff("insanityindicatorbuff"))
+				player.addBuff(new ActiveBuff("insanityindicatorbuff", player, ((33 - sanity) * 1200 - 1200 + nextSanityIncrease) / 20f, null), true);
+			else {
+				player.buffManager.getBuff("insanityindicatorbuff").setDurationLeftSeconds(((33 - sanity) * 1200 - 1200 + nextSanityIncrease) / 20f);
+				server.network.sendToAllClients(new PacketMobBuff(player.getUniqueID(), player.buffManager.getBuff("insanityindicatorbuff")));
+			}
+
 			if (ticksSinceLastHallucination >= nextHallucination) {
 				ticksSinceLastHallucination = 0;
 				nextHallucination = GameRandom.globalRandom.getIntBetween(12000, 60000); // 60s -> 300s (assuming 20 TPS)
 				for (int times = GameRandom.globalRandom.getIntBetween(1, 6 - sanity / 6); times > 0; --times) {
-					PlayerMob player = server.getPlayerByAuth(auth);
 					Point tile = player.getMapPos();
 					tile.x += GameRandom.globalRandom.getIntBetween(-100, 100);
 					tile.y += GameRandom.globalRandom.getIntBetween(-100, 100);
@@ -51,12 +60,20 @@ public class SanityPlayer {
 					}
 				}
 			} else ++ticksSinceLastHallucination;
+		} else {
+			if (player.buffManager.hasBuff("insanityindicatorbuff")) {
+				player.buffManager.removeBuff("insanityindicatorbuff", true);
+			}
 		}
 		if (nextSanityIncrease == 0) {
 			nextSanityIncrease = 1200; // TODO: add small randomness?
 			++sanity;
 			if (sanity > 100) sanity = 100;
 		} else --nextSanityIncrease;
+	}
+
+	public void clientTick(Client client) {
+
 	}
 
 	public void setSanity(int amount) {
@@ -77,8 +94,9 @@ public class SanityPlayer {
 		return sanity;
 	}
 
+	@Override
 	public void addSaveData(SaveData save) {
-		SaveData player = new SaveData(String.valueOf(auth));
+		SaveData player = generatePlayerSave();
 		player.addByte("sanity", sanity);
 		player.addInt("nextHallucination", nextHallucination);
 		player.addInt("nextSanityIncrease", nextSanityIncrease);
@@ -86,6 +104,7 @@ public class SanityPlayer {
 		save.addSaveData(player);
 	}
 
+	@Override
 	public void load(LoadData data) {
 		sanity = data.getByte("sanity");
 		nextHallucination = data.getInt("nextHallucination");

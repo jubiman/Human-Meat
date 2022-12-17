@@ -1,19 +1,19 @@
 package com.jubiman.humanflesh;
 
+import com.jubiman.customplayerlib.CustomPlayerRegistry;
+import com.jubiman.humanflesh.buff.InsanityIndicatorBuff;
 import com.jubiman.humanflesh.command.SanityCommand;
 import com.jubiman.humanflesh.item.CookedHumanMeat;
 import com.jubiman.humanflesh.item.HumanMeat;
 import com.jubiman.humanflesh.mob.HarmlessMobs;
 import com.jubiman.humanflesh.sanity.SanityPlayers;
 import com.jubiman.humanflesh.utils.EnumHelper;
-import necesse.engine.GameEventListener;
-import necesse.engine.GameEvents;
 import necesse.engine.GameRaidFrequency;
 import necesse.engine.commands.CommandsManager;
-import necesse.engine.events.ServerStopEvent;
 import necesse.engine.localization.message.GameMessage;
 import necesse.engine.localization.message.LocalMessage;
 import necesse.engine.modLoader.annotations.ModEntry;
+import necesse.engine.registries.BuffRegistry;
 import necesse.engine.registries.ItemRegistry;
 import necesse.engine.registries.MobRegistry;
 import necesse.engine.registries.RecipeTechRegistry;
@@ -29,7 +29,10 @@ public class HumanFlesh {
 	public void init() {
 		System.out.println("Human flesh init");
 
-		SanityPlayers.init();
+		CustomPlayerRegistry.register(SanityPlayers.name, new SanityPlayers());
+
+		// Register indicator buff
+		BuffRegistry.registerBuff("insanityindicatorbuff", new InsanityIndicatorBuff());
 
 		// Register item
 		ItemRegistry.registerItem("humanmeat", new HumanMeat(), 50, true);
@@ -45,14 +48,6 @@ public class HumanFlesh {
 		MobRegistry.registerMob("harmlessblackcavespider", HarmlessMobs.BlackCaveSpiderMob.class, true);
 		MobRegistry.registerMob("harmlesssandspirit", HarmlessMobs.SandSpiritMob.class, true);
 		MobRegistry.registerMob("harmlessdeepcavespirit", HarmlessMobs.DeepCaveSpiritMob.class, true);
-
-		// Event listeners
-		GameEvents.addListener(ServerStopEvent.class, new GameEventListener<ServerStopEvent>() {
-			@Override
-			public void onEvent(ServerStopEvent e) {
-				SanityPlayers.stop();
-			}
-		});
 	}
 
 	public void postInit() {
