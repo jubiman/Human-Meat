@@ -1,7 +1,6 @@
 package com.jubiman.humanflesh.sanity;
 
 import com.jubiman.customplayerlib.CustomPlayer;
-import necesse.engine.network.client.Client;
 import necesse.engine.network.packet.PacketMobBuff;
 import necesse.engine.network.packet.PacketSpawnMob;
 import necesse.engine.network.server.Server;
@@ -70,10 +69,6 @@ public class SanityPlayer extends CustomPlayer {
 			++sanity;
 			if (sanity > 100) sanity = 100;
 		} else --nextSanityIncrease;
-	}
-
-	public void clientTick(Client client) {
-
 	}
 
 	public void setSanity(int amount) {
