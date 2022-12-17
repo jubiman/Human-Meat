@@ -106,7 +106,11 @@ public class SanityPlayer extends CustomPlayerTickable {
 	}
 
 	@Override
-	public void load(LoadData data) {
+	public void loadEnter(LoadData data) {
+	}
+
+	@Override
+	public void loadExit(LoadData data) {
 		sanity = data.getByte("sanity");
 		nextHallucination = data.getInt("nextHallucination");
 		nextSanityIncrease = data.getInt("nextSanityIncrease");
