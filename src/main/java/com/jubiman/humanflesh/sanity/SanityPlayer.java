@@ -45,7 +45,7 @@ public class SanityPlayer extends CustomPlayerTickable {
 			if (ticksSinceLastHallucination >= nextHallucination) {
 				ticksSinceLastHallucination = 0;
 				nextHallucination = GameRandom.globalRandom.getIntBetween(12000, 60000); // 60s -> 300s (assuming 20 TPS)
-				for (int times = GameRandom.globalRandom.getIntBetween(1, 6 - sanity / 6); times > 0; --times) {
+				for (int times = GameRandom.globalRandom.getIntBetween(1, (32 - sanity / 6) + 1); times > 0; --times) {
 					Point tile = player.getMapPos();
 					tile.x += GameRandom.globalRandom.getIntBetween(-100, 100);
 					tile.y += GameRandom.globalRandom.getIntBetween(-100, 100);
