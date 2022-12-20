@@ -1,7 +1,7 @@
 package com.jubiman.humanflesh.sanity;
 
 import com.jubiman.customplayerlib.CustomPlayerRegistry;
-import com.jubiman.customplayerlib.CustomPlayersTickable;
+import com.jubiman.customplayerlib.CustomPlayersHandlerTickable;
 import com.jubiman.humanflesh.mob.HarmlessMobs;
 import necesse.engine.network.server.ServerClient;
 import necesse.entity.mobs.Mob;
@@ -11,13 +11,15 @@ import necesse.level.maps.biomes.MobChance;
 import necesse.level.maps.biomes.MobSpawnTable;
 
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 
-public class SanityPlayers extends CustomPlayersTickable<SanityPlayer> {
+public class SanityPlayersHandler extends CustomPlayersHandlerTickable<SanityPlayer> {
 	public static final String name = "SANITYPLAYERS";
 	public static final MobSpawnTable spawnTable = new MobSpawnTable();
 
-	public SanityPlayers() {
+	public SanityPlayersHandler() {
 		super(SanityPlayer.class, name);
+		init();
 	}
 
 	public void init() {
@@ -44,16 +46,18 @@ public class SanityPlayers extends CustomPlayersTickable<SanityPlayer> {
 			@Override
 			public Mob getMob(Level level, ServerClient serverClient, Point point) {
 				try {
-					return mob.newInstance();
+					return mob.getDeclaredConstructor().newInstance();
 				} catch (InstantiationException | IllegalAccessException e) { // shouldn't happen
+					throw new RuntimeException(e);
+				} catch (InvocationTargetException | NoSuchMethodException e) {
 					throw new RuntimeException(e);
 				}
 			}
 		};
 	}
 
-	public static SanityPlayers getInstance() {
-		return (SanityPlayers) CustomPlayerRegistry.get(name);
+	public static SanityPlayersHandler getInstance() {
+		return (SanityPlayersHandler) CustomPlayerRegistry.get(name);
 	}
 
 	/**

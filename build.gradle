@@ -7,8 +7,8 @@ plugins {
 
 project.ext.modID = "com.jubiman.humanflesh" // The unique id of your mod. Must be all lowercase and cannot use special characters.
 project.ext.modName = "Human Flesh" // The display name of your mod.
-project.ext.modVersion = "1.5" // Your current builds version. Must follow the xx.xx... format.
-project.ext.gameVersion = "0.21.26" // The target game version.
+project.ext.modVersion = "1.6" // Your current builds version. Must follow the xx.xx... format.
+project.ext.gameVersion = "0.21.27" // The target game version.
 project.ext.modDescription = "Adds human flesh to the game (for consumption)" // Short description of what your mod is.
 project.ext.author = "Jubiman" // Your name
 
@@ -49,6 +49,13 @@ repositories {
     maven {
         url "https://s01.oss.sonatype.org/content/repositories/releases/"
     }
+    maven {
+        url "https://maven.pkg.github.com/jubiman/CustomPlayerLib"
+        credentials {
+            username = githubUsername
+            password = githubToken
+        }
+    }
 }
 
 sourceSets.main.output.resourcesDir = file("build/mod/resources/")
@@ -66,7 +73,7 @@ dependencies {
     implementation fileTree(gameDirectory + "/lib/")
     implementation fileTree("./mods/") // Add all mods located in local mods folder
 
-    compileOnly "com.jubiman:customplayerlib:1.9"
+    compileOnly "com.jubiman:customplayerlib:1.10"
 }
 
 task createAppID {

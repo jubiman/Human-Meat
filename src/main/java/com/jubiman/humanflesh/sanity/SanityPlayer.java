@@ -50,7 +50,7 @@ public class SanityPlayer extends CustomPlayerTickable {
 					tile.x += GameRandom.globalRandom.getIntBetween(-100, 100);
 					tile.y += GameRandom.globalRandom.getIntBetween(-100, 100);
 					Level level = player.getLevel();
-					MobChance randomMob = SanityPlayers.spawnTable.getRandomMob(level, null, tile, GameRandom.globalRandom);
+					MobChance randomMob = SanityPlayersHandler.spawnTable.getRandomMob(level, null, tile, GameRandom.globalRandom);
 					if (randomMob != null) {
 						Mob mob = randomMob.getMob(level, null, tile);
 						mob.setLevel(level);

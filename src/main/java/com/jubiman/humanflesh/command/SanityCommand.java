@@ -1,7 +1,7 @@
 package com.jubiman.humanflesh.command;
 
 import com.jubiman.humanflesh.sanity.SanityPlayer;
-import com.jubiman.humanflesh.sanity.SanityPlayers;
+import com.jubiman.humanflesh.sanity.SanityPlayersHandler;
 import necesse.engine.commands.CmdParameter;
 import necesse.engine.commands.CommandLog;
 import necesse.engine.commands.ModularChatCommand;
@@ -19,7 +19,7 @@ public class SanityCommand extends ModularChatCommand {
 
 	@Override
 	public void runModular(Client client, Server server, ServerClient serverClient, Object[] args, String[] errors, CommandLog commandLog) {
-		SanityPlayer player = SanityPlayers.getPlayer(serverClient.authentication);
+		SanityPlayer player = SanityPlayersHandler.getPlayer(serverClient.authentication);
 		switch ((String) args[0]) {
 			case "set":
 				player.setSanity((int) args[1]);

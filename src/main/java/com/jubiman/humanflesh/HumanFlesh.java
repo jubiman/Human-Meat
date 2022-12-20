@@ -6,12 +6,8 @@ import com.jubiman.humanflesh.command.SanityCommand;
 import com.jubiman.humanflesh.item.CookedHumanMeat;
 import com.jubiman.humanflesh.item.HumanMeat;
 import com.jubiman.humanflesh.mob.HarmlessMobs;
-import com.jubiman.humanflesh.sanity.SanityPlayers;
-import com.jubiman.humanflesh.utils.EnumHelper;
-import necesse.engine.GameRaidFrequency;
+import com.jubiman.humanflesh.sanity.SanityPlayersHandler;
 import necesse.engine.commands.CommandsManager;
-import necesse.engine.localization.message.GameMessage;
-import necesse.engine.localization.message.LocalMessage;
 import necesse.engine.modLoader.annotations.ModEntry;
 import necesse.engine.registries.BuffRegistry;
 import necesse.engine.registries.ItemRegistry;
@@ -29,7 +25,7 @@ public class HumanFlesh {
 	public void init() {
 		System.out.println("Human flesh init");
 
-		CustomPlayerRegistry.register(SanityPlayers.name, new SanityPlayers());
+		CustomPlayerRegistry.register(SanityPlayersHandler.name, new SanityPlayersHandler());
 
 		// Register indicator buff
 		BuffRegistry.registerBuff("insanityindicatorbuff", new InsanityIndicatorBuff());
@@ -66,8 +62,5 @@ public class HumanFlesh {
 
 		// Register (debug) command
 		CommandsManager.registerServerCommand(new SanityCommand());
-
-		// Add new OFTEN field to GameRaidFrequency
-		EnumHelper.addEnum(GameRaidFrequency.class, "OFTEN", new Class[] {GameMessage.class, GameMessage.class}, new LocalMessage("ui", "raidsoften"), null);
 	}
 }

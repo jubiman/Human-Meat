@@ -1,6 +1,6 @@
 package com.jubiman.humanflesh.item;
 
-import com.jubiman.humanflesh.sanity.SanityPlayers;
+import com.jubiman.humanflesh.sanity.SanityPlayersHandler;
 import necesse.engine.localization.Localization;
 import necesse.entity.mobs.PlayerMob;
 import necesse.gfx.GameColor;
@@ -21,7 +21,7 @@ public class CookedHumanMeat extends FoodConsumableItem {
 		boolean consumed = super.consume(level, player, item);
 		if (consumed)
 			if (player.isServerClient())
-				SanityPlayers.getPlayer(player.getServerClient().authentication).removeSanity(10);
+				SanityPlayersHandler.getPlayer(player.getServerClient().authentication).removeSanity(10);
 		return consumed;
 	}
 
