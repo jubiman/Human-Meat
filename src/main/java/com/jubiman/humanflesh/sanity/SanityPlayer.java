@@ -1,7 +1,7 @@
 package com.jubiman.humanflesh.sanity;
 
-import com.jubiman.customplayerlib.CustomPlayerTickable;
-import necesse.engine.network.client.Client;
+import com.jubiman.customdatalib.api.Savable;
+import com.jubiman.customdatalib.player.CustomPlayer;
 import necesse.engine.network.packet.PacketMobBuff;
 import necesse.engine.network.packet.PacketSpawnMob;
 import necesse.engine.network.server.Server;
@@ -17,7 +17,7 @@ import necesse.level.maps.biomes.MobChance;
 
 import java.awt.*;
 
-public class SanityPlayer extends CustomPlayerTickable {
+public class SanityPlayer extends CustomPlayer implements Savable {
 	public int ticksSinceLastHallucination;
 	public int nextHallucination;
 	public int nextSanityIncrease;
@@ -73,10 +73,6 @@ public class SanityPlayer extends CustomPlayerTickable {
 		} else --nextSanityIncrease;
 	}
 
-	@Override
-	public void clientTick(Client client) {
-	}
-
 	public void setSanity(int amount) {
 		sanity = (byte) amount;
 		if (sanity < 0) sanity = 0;
@@ -97,12 +93,10 @@ public class SanityPlayer extends CustomPlayerTickable {
 
 	@Override
 	public void addSaveData(SaveData save) {
-		SaveData player = generatePlayerSave();
-		player.addByte("sanity", sanity);
-		player.addInt("nextHallucination", nextHallucination);
-		player.addInt("nextSanityIncrease", nextSanityIncrease);
-		player.addInt("ticksSinceLastHallucination", ticksSinceLastHallucination);
-		save.addSaveData(player);
+		save.addByte("sanity", sanity);
+		save.addInt("nextHallucination", nextHallucination);
+		save.addInt("nextSanityIncrease", nextSanityIncrease);
+		save.addInt("ticksSinceLastHallucination", ticksSinceLastHallucination);
 	}
 
 	@Override

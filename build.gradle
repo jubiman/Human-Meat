@@ -7,8 +7,8 @@ plugins {
 
 project.ext.modID = "com.jubiman.humanflesh" // The unique id of your mod. Must be all lowercase and cannot use special characters.
 project.ext.modName = "Human Flesh" // The display name of your mod.
-project.ext.modVersion = "1.7" // Your current builds version. Must follow the xx.xx... format.
-project.ext.gameVersion = "0.21.28" // The target game version.
+project.ext.modVersion = "2.0" // Your current builds version. Must follow the xx.xx... format.
+project.ext.gameVersion = "0.22.1" // The target game version.
 project.ext.modDescription = "Adds human flesh to the game (for consumption)" // Short description of what your mod is.
 project.ext.author = "Jubiman" // Your name
 
@@ -24,12 +24,12 @@ project.ext.clientside = false
  * Dependencies define the default load order of mods
  * Uncomment and configure these if your mod has dependencies
  */
-project.ext.modDependencies = ["com.jubiman.customplayerlib"]
+project.ext.modDependencies = ["com.jubiman.customdatalib"]
 //project.ext.modDependencies = ["other.modid1", "other.modid2"]
 //project.ext.modOptionalDependencies = ["optional.modid1", "optional.modid2"]
 
 // The path to the games install directory
-def gameDirectory = "E:/SteamGames/steamapps/common/Necesse"
+def gameDirectory = "/home/jubiman/.local/share/Steam/steamapps/common/Necesse"
 
 // =================================================
 // ========== DO NOT EDIT BELOW THIS LINE ==========
@@ -50,7 +50,7 @@ repositories {
         url "https://s01.oss.sonatype.org/content/repositories/releases/"
     }
     maven {
-        url "https://maven.pkg.github.com/jubiman/CustomPlayerLib"
+        url "https://maven.pkg.github.com/jubiman/CustomDataLib"
         credentials {
             username = githubUsername
             password = githubToken
@@ -73,7 +73,7 @@ dependencies {
     implementation fileTree(gameDirectory + "/lib/")
     implementation fileTree("./mods/") // Add all mods located in local mods folder
 
-    compileOnly "com.jubiman:customplayerlib:1.11"
+    compileOnly "com.jubiman:customdatalib:1.2"
 }
 
 task createAppID {

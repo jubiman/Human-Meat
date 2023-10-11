@@ -19,7 +19,7 @@ public class SanityCommand extends ModularChatCommand {
 
 	@Override
 	public void runModular(Client client, Server server, ServerClient serverClient, Object[] args, String[] errors, CommandLog commandLog) {
-		SanityPlayer player = SanityPlayersHandler.getPlayer(serverClient.authentication);
+		SanityPlayer player = SanityPlayersHandler.getPlayer(serverClient);
 		switch ((String) args[0]) {
 			case "set":
 				player.setSanity((int) args[1]);

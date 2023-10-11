@@ -67,5 +67,9 @@ public class HarmlessMobs {
 		}
 	}
 
+	/**
+	 * Marker interface for harmless mobs.
+	 * So we can use instanceof to check if a mob is harmless
+	 */
 	public interface Harmless {}
 }

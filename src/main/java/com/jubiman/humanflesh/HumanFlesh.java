@@ -1,6 +1,6 @@
 package com.jubiman.humanflesh;
 
-import com.jubiman.customplayerlib.CustomPlayerRegistry;
+import com.jubiman.customdatalib.player.CustomPlayerRegistry;
 import com.jubiman.humanflesh.buff.InsanityIndicatorBuff;
 import com.jubiman.humanflesh.command.SanityCommand;
 import com.jubiman.humanflesh.item.CookedHumanMeat;
@@ -25,7 +25,7 @@ public class HumanFlesh {
 	public void init() {
 		System.out.println("Human flesh init");
 
-		CustomPlayerRegistry.register(SanityPlayersHandler.name, new SanityPlayersHandler());
+		CustomPlayerRegistry.registerClass(SanityPlayersHandler.name, SanityPlayersHandler.class);
 
 		// Register indicator buff
 		BuffRegistry.registerBuff("insanityindicatorbuff", new InsanityIndicatorBuff());

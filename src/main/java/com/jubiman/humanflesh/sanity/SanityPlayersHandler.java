@@ -1,10 +1,12 @@
 package com.jubiman.humanflesh.sanity;
 
-import com.jubiman.customplayerlib.CustomPlayerRegistry;
-import com.jubiman.customplayerlib.CustomPlayersHandlerTickable;
+import com.jubiman.customdatalib.player.CustomPlayerRegistry;
+import com.jubiman.customdatalib.player.CustomPlayersHandler;
 import com.jubiman.humanflesh.mob.HarmlessMobs;
+import necesse.engine.network.client.ClientClient;
 import necesse.engine.network.server.ServerClient;
 import necesse.entity.mobs.Mob;
+import necesse.entity.mobs.PlayerMob;
 import necesse.entity.mobs.hostile.pirates.PirateCaptainMob;
 import necesse.level.maps.Level;
 import necesse.level.maps.biomes.MobChance;
@@ -13,7 +15,7 @@ import necesse.level.maps.biomes.MobSpawnTable;
 import java.awt.*;
 import java.lang.reflect.InvocationTargetException;
 
-public class SanityPlayersHandler extends CustomPlayersHandlerTickable<SanityPlayer> {
+public class SanityPlayersHandler extends CustomPlayersHandler<SanityPlayer> {
 	public static final String name = "SANITYPLAYERS";
 	public static final MobSpawnTable spawnTable = new MobSpawnTable();
 
@@ -57,7 +59,7 @@ public class SanityPlayersHandler extends CustomPlayersHandlerTickable<SanityPla
 	}
 
 	public static SanityPlayersHandler getInstance() {
-		return (SanityPlayersHandler) CustomPlayerRegistry.get(name);
+		return (SanityPlayersHandler) CustomPlayerRegistry.INSTANCE.get(name);
 	}
 
 	/**
@@ -67,5 +69,35 @@ public class SanityPlayersHandler extends CustomPlayersHandlerTickable<SanityPla
 	 */
 	public static SanityPlayer getPlayer(long auth) {
 		return getInstance().get(auth);
+	}
+
+	/**
+	 * Gets the player from the ServerClient or the ClientClient.
+	 * @param serverClient The ServerClient to get the SanityPlayer from.
+	 * @return The SanityPlayer.
+	 */
+	public static SanityPlayer getPlayer(ServerClient serverClient) {
+		return getPlayer(serverClient.authentication);
+	}
+
+	/**
+	 * Gets the player from the ServerClient or the ClientClient.
+	 * @param clientClient The ClientClient to get the SanityPlayer from.
+	 * @return The SanityPlayer.
+	 */
+	public static SanityPlayer getPlayer(ClientClient clientClient) {
+		return getPlayer(clientClient.authentication);
+	}
+
+	/**
+	 * Gets the player from the PlayerMob.
+	 * @param playerMob The PlayerMob to get the SanityPlayer from.
+	 * @return The SanityPlayer.
+	 */
+	public static SanityPlayer getPlayer(PlayerMob playerMob) {
+		if (playerMob.isClientClient())
+			return getPlayer(playerMob.getClientClient());
+		else
+			return getPlayer(playerMob.getServerClient());
 	}
 }
