@@ -2,12 +2,13 @@ package com.jubiman.humanflesh.buff;
 
 import necesse.engine.localization.Localization;
 import necesse.entity.mobs.buffs.ActiveBuff;
+import necesse.entity.mobs.buffs.BuffEventSubscriber;
 import necesse.entity.mobs.buffs.staticBuffs.Buff;
 import necesse.gfx.gameTooltips.ListGameTooltips;
 
 public class InsanityIndicatorBuff extends Buff {
 	@Override
-	public void init(ActiveBuff activeBuff) {
+	public void init(ActiveBuff activeBuff, BuffEventSubscriber buffEventSubscriber) {
 		this.canCancel = false;
 		this.overrideSync = true;
 	}

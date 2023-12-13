@@ -2,6 +2,7 @@ package com.jubiman.humanflesh;
 
 import com.jubiman.customdatalib.player.CustomPlayerRegistry;
 import com.jubiman.humanflesh.buff.InsanityIndicatorBuff;
+import com.jubiman.humanflesh.command.HallucinationCommand;
 import com.jubiman.humanflesh.command.SanityCommand;
 import com.jubiman.humanflesh.item.CookedHumanMeat;
 import com.jubiman.humanflesh.item.HumanMeat;
@@ -62,5 +63,6 @@ public class HumanFlesh {
 
 		// Register (debug) command
 		CommandsManager.registerServerCommand(new SanityCommand());
+		CommandsManager.registerServerCommand(new HallucinationCommand());
 	}
 }
