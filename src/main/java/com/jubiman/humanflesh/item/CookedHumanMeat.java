@@ -2,6 +2,7 @@ package com.jubiman.humanflesh.item;
 
 import com.jubiman.humanflesh.sanity.SanityPlayersHandler;
 import necesse.engine.localization.Localization;
+import necesse.engine.util.GameBlackboard;
 import necesse.entity.mobs.PlayerMob;
 import necesse.gfx.GameColor;
 import necesse.gfx.gameTooltips.ListGameTooltips;
@@ -26,8 +27,8 @@ public class CookedHumanMeat extends FoodConsumableItem {
 	}
 
 	@Override
-	public ListGameTooltips getTooltips(InventoryItem item, PlayerMob perspective) {
-		ListGameTooltips tooltips = super.getTooltips(item, perspective);
+	public ListGameTooltips getTooltips(InventoryItem item, PlayerMob perspective, GameBlackboard blackboard) {
+		ListGameTooltips tooltips = super.getTooltips(item, perspective, blackboard);
 		tooltips.remove(tooltips.size()-1);
 		tooltips.add(GameColor.RED.getColorCode() + String.format(Localization.translate("buffmodifiers", "sanity"), -10));
 		return tooltips;

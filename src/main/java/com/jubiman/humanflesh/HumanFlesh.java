@@ -32,8 +32,8 @@ public class HumanFlesh {
 		BuffRegistry.registerBuff("insanityindicatorbuff", new InsanityIndicatorBuff());
 
 		// Register item
-		ItemRegistry.registerItem("humanmeat", new HumanMeat(), 50, true);
-		ItemRegistry.registerItem("cookedhumanmeat", new CookedHumanMeat(), 77, true);
+		ItemRegistry.registerItem("humanmeat", new HumanMeat(), 25, true);
+		ItemRegistry.registerItem("cookedhumanmeat", new CookedHumanMeat(), 30, true);
 
 		// Register harmless mobs
 		MobRegistry.registerMob("harmlessfrozendwarf", HarmlessMobs.FrozenDwarfMob.class, true);

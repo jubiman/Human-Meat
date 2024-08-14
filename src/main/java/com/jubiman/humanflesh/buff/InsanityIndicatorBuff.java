@@ -1,6 +1,7 @@
 package com.jubiman.humanflesh.buff;
 
 import necesse.engine.localization.Localization;
+import necesse.engine.util.GameBlackboard;
 import necesse.entity.mobs.buffs.ActiveBuff;
 import necesse.entity.mobs.buffs.BuffEventSubscriber;
 import necesse.entity.mobs.buffs.staticBuffs.Buff;
@@ -14,8 +15,8 @@ public class InsanityIndicatorBuff extends Buff {
 	}
 
 	@Override
-	public ListGameTooltips getTooltip(ActiveBuff ab) {
-		ListGameTooltips tooltips = super.getTooltip(ab);
+	public ListGameTooltips getTooltip(ActiveBuff ab, GameBlackboard blackboard) {
+		ListGameTooltips tooltips = super.getTooltip(ab, blackboard);
 		tooltips.add(Localization.translate("buff", "insanityindicatorbufftooltip"));
 		return tooltips;
 	}

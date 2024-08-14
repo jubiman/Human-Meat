@@ -32,10 +32,10 @@ public class HallucinationCommand extends ModularChatCommand {
 				break;
 			case "get":
 				commandLog.add("Hallucination: " + player.nextHallucination + ". Which is in "
-						+ (player.nextHallucination - server.tickManager().getTotalTicks()) + " ticks.");
+						+ player.nextHallucination + " ticks.");
 				return;
 			case "force":
-				player.nextHallucination = server.tickManager().getTotalTicks() + 1;
+				player.nextHallucination = 0;
 				commandLog.add("Forcing hallucination in 1 tick...");
 				return;
 		}
