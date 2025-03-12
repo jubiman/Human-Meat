@@ -3,6 +3,7 @@ package com.jubiman.humanflesh.sanity;
 import com.jubiman.customdatalib.player.CustomPlayerRegistry;
 import com.jubiman.customdatalib.player.CustomPlayersHandler;
 import com.jubiman.humanflesh.mob.HarmlessMobs;
+import necesse.engine.GameLog;
 import necesse.engine.network.client.ClientClient;
 import necesse.engine.network.server.ServerClient;
 import necesse.entity.mobs.Mob;
@@ -41,8 +42,8 @@ public class SanityPlayersHandler extends CustomPlayersHandler<SanityPlayer> {
 	private static MobChance generate(int tickets, Class<? extends Mob> mob) {
 		return new MobChance(tickets) {
 			@Override
-			public boolean canSpawn(Level level, ServerClient serverClient, Point point) {
-				return true;
+			public boolean canSpawn(Level level, ServerClient serverClient, Point point, String purpose) {
+				return purpose.equals("hallucination");
 			}
 
 			@Override

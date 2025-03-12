@@ -7,8 +7,8 @@ plugins {
 
 project.ext.modID = "com.jubiman.humanflesh" // The unique id of your mod. Must be all lowercase and cannot use special characters.
 project.ext.modName = "Human Flesh" // The display name of your mod.
-project.ext.modVersion = "2.2.0" // Your current builds version. Must follow the xx.xx... format.
-project.ext.gameVersion = "0.26.0" // The target game version.
+project.ext.modVersion = "2.3.0" // Your current builds version. Must follow the xx.xx... format.
+project.ext.gameVersion = "0.31.1" // The target game version.
 project.ext.modDescription = "Adds human flesh to the game (for consumption)" // Short description of what your mod is.
 project.ext.author = "Jubiman" // Your name
 
@@ -81,7 +81,7 @@ dependencies {
     implementation fileTree(gameDirectory + "/lib/")
     implementation fileTree("./mods/") // Add all mods located in local mods folder
 
-    compileOnly "com.jubiman:customdatalib:1.2"
+    compileOnly "com.jubiman:customdatalib:1.6"
 }
 
 task createAppID {
@@ -146,7 +146,7 @@ task runServer(type: JavaExec) {
     classpath = files(gameDirectory + "/Server.jar")
 
     main = "StartDesktopServer"
-    jvmArgs "-Xms512m", "-Xmx3G", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseG1GC", "-XX:G1NewSizePercent=20", "-XX:G1ReservePercent=20", "-XX:MaxGCPauseMillis=50", "-XX:G1HeapRegionSize=32M"
+    jvmArgs "-Xms512m", "-Xmx4G", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseG1GC", "-XX:G1NewSizePercent=20", "-XX:G1ReservePercent=20", "-XX:MaxGCPauseMillis=50", "-XX:G1HeapRegionSize=32M"
     args "-mod \"${buildLocation}\""
 }
 

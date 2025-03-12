@@ -20,7 +20,7 @@ import java.awt.*;
 
 public class SanityPlayer extends CustomPlayer implements Savable {
 	public long nextHallucination;
-	public short nextSanityIncrease;
+	public long nextSanityIncrease;
 	private byte sanity;
 
 	public SanityPlayer(long auth) {
@@ -36,14 +36,15 @@ public class SanityPlayer extends CustomPlayer implements Savable {
 		if (sanity < 33) {
 			int tps = server.tickManager().getTPS();
 			if (!player.buffManager.hasBuff("insanityindicatorbuff"))
-				player.addBuff(new ActiveBuff("insanityindicatorbuff", player, ((33 - sanity) * 1200 - 1200 + nextSanityIncrease) / tps, null), true);
+				player.addBuff(new ActiveBuff("insanityindicatorbuff", player, (float) ((33 - sanity) * 1200 - 1200 + nextSanityIncrease) / tps, null), true);
 			else {
 				player.buffManager.getBuff("insanityindicatorbuff").setDurationLeftSeconds(((33 - sanity) * 1200 - 1200 + nextSanityIncrease) / (float) tps);
 				server.network.sendToAllClients(new PacketMobBuff(player.getUniqueID(), player.buffManager.getBuff("insanityindicatorbuff")));
 			}
 
-			if (nextHallucination <= 0) {
-				nextHallucination = GameRandom.globalRandom.getIntBetween(
+			if (nextHallucination <= server.tickManager().getTotalTicks()) {
+				nextHallucination = server.tickManager().getTotalTicks() +
+						GameRandom.globalRandom.getIntBetween(
 						60 * tps,
 						300 * tps
 				); // 60s -> 300s
@@ -55,7 +56,7 @@ public class SanityPlayer extends CustomPlayer implements Savable {
 					tile.x += GameRandom.globalRandom.getIntBetween(-300, 300);
 					tile.y += GameRandom.globalRandom.getIntBetween(-300, 300);
 					Level level = player.getLevel();
-					MobChance randomMob = SanityPlayersHandler.spawnTable.getRandomMob(level, player.getServerClient(), tile, GameRandom.globalRandom);
+					MobChance randomMob = SanityPlayersHandler.spawnTable.getRandomMob(level, player.getServerClient(), tile, GameRandom.globalRandom, "hallucination");
 					if (randomMob != null) {
 						Mob mob = randomMob.getMob(level, player.getServerClient(), tile);
 						mob.setLevel(level);
@@ -64,17 +65,17 @@ public class SanityPlayer extends CustomPlayer implements Savable {
 						if (mob instanceof PirateMob) break; // don't want more mobs after a boss lmao
 					}
 				}
-			} else --nextHallucination;
+			}
 		} else {
 			if (player.buffManager.hasBuff("insanityindicatorbuff")) {
 				player.buffManager.removeBuff("insanityindicatorbuff", true);
 			}
 		}
-		if (nextSanityIncrease <= 0) {
-			nextSanityIncrease = 1200;
+		if (nextSanityIncrease <= server.tickManager().getTotalTicks()) {
+			nextSanityIncrease = 1200 + server.tickManager().getTotalTicks();
 			++sanity;
 			if (sanity > 100) sanity = 100;
-		} else --nextSanityIncrease;
+		}
 	}
 
 	public void setSanity(int amount) {
@@ -99,7 +100,7 @@ public class SanityPlayer extends CustomPlayer implements Savable {
 	public void addSaveData(SaveData save) {
 		save.addByte("sanity", sanity);
 		save.addLong("nextHallucination", nextHallucination);
-		save.addInt("nextSanityIncrease", nextSanityIncrease);
+		save.addLong("nextSanityIncrease", nextSanityIncrease);
 	}
 
 	@Override
@@ -110,6 +111,6 @@ public class SanityPlayer extends CustomPlayer implements Savable {
 	public void loadExit(LoadData data) {
 		sanity = data.getByte("sanity");
 		nextHallucination = data.getLong("nextHallucination");
-		nextSanityIncrease = data.getShort("nextSanityIncrease"); // shouldn't crash existing saves
+		nextSanityIncrease = data.getLong("nextSanityIncrease"); // shouldn't crash existing saves
 	}
 }
