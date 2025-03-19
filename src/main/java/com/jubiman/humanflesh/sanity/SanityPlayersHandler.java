@@ -65,6 +65,7 @@ public class SanityPlayersHandler extends CustomPlayersHandler<SanityPlayer> {
 
 	/**
 	 * A null safe way to get a player from the map, adds player if they don't exist yet
+	 *
 	 * @param auth the authentication of the player's ServerClient
 	 * @return the SanityPlayer object belonging to the player
 	 */
@@ -74,31 +75,11 @@ public class SanityPlayersHandler extends CustomPlayersHandler<SanityPlayer> {
 
 	/**
 	 * Gets the player from the ServerClient or the ClientClient.
+	 *
 	 * @param serverClient The ServerClient to get the SanityPlayer from.
 	 * @return The SanityPlayer.
 	 */
 	public static SanityPlayer getPlayer(ServerClient serverClient) {
 		return getPlayer(serverClient.authentication);
-	}
-
-	/**
-	 * Gets the player from the ServerClient or the ClientClient.
-	 * @param clientClient The ClientClient to get the SanityPlayer from.
-	 * @return The SanityPlayer.
-	 */
-	public static SanityPlayer getPlayer(ClientClient clientClient) {
-		return getPlayer(clientClient.authentication);
-	}
-
-	/**
-	 * Gets the player from the PlayerMob.
-	 * @param playerMob The PlayerMob to get the SanityPlayer from.
-	 * @return The SanityPlayer.
-	 */
-	public static SanityPlayer getPlayer(PlayerMob playerMob) {
-		if (playerMob.isClientClient())
-			return getPlayer(playerMob.getClientClient());
-		else
-			return getPlayer(playerMob.getServerClient());
 	}
 }

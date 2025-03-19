@@ -7,7 +7,7 @@ plugins {
 
 project.ext.modID = "com.jubiman.humanflesh" // The unique id of your mod. Must be all lowercase and cannot use special characters.
 project.ext.modName = "Human Flesh" // The display name of your mod.
-project.ext.modVersion = "2.3.0" // Your current builds version. Must follow the xx.xx... format.
+project.ext.modVersion = "2.4.0" // Your current builds version. Must follow the xx.xx... format.
 project.ext.gameVersion = "0.31.1" // The target game version.
 project.ext.modDescription = "Adds human flesh to the game (for consumption)" // Short description of what your mod is.
 project.ext.author = "Jubiman" // Your name

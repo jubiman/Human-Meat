@@ -23,7 +23,7 @@ public class CookedHumanMeat extends FoodConsumableItem {
 		boolean consumed = super.consume(level, hungerMob, item);
 		if (consumed)
 			if (hungerMob instanceof PlayerMob && ((PlayerMob) hungerMob).isServerClient())
-				SanityPlayersHandler.getPlayer(((PlayerMob) hungerMob).getServerClient()).removeSanity(10);
+				SanityPlayersHandler.getPlayer(((PlayerMob) hungerMob).getServerClient()).removeSanity(5);
 		return consumed;
 	}
 
