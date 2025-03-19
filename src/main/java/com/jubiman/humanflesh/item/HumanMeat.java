@@ -31,7 +31,7 @@ public class HumanMeat extends FoodConsumableItem {
 	public ListGameTooltips getTooltips(InventoryItem item, PlayerMob perspective, GameBlackboard blackboard) {
 		ListGameTooltips tooltips = super.getTooltips(item, perspective, blackboard);
 		tooltips.remove(tooltips.size()-1);
-		tooltips.add(GameColor.RED.getColorCode() + String.format(Localization.translate("buffmodifiers", "sanity"), -20));
+		tooltips.add(GameColor.RED.getColorCode() + String.format(Localization.translate("buffmodifiers", "sanity"), -2));
 		return tooltips;
 	}
 }

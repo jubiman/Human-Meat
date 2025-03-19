@@ -45,9 +45,9 @@ public class SanityPlayer extends CustomPlayer implements Savable {
 			if (nextHallucination <= server.tickManager().getTotalTicks()) {
 				nextHallucination = server.tickManager().getTotalTicks() +
 						GameRandom.globalRandom.getIntBetween(
-						300 * tps,
-						600 * tps
-				); // 300s -> 600s
+						120 * tps,
+						300 * tps
+				); // 120s -> 300s
                 GameLog.debug.println("Hallucination time: " + nextHallucination + " ticks");
                 int times = GameRandom.globalRandom.getIntBetween(1, (8 - sanity / 4) + 1);
                 GameLog.debug.println("Hallucination times: " + times);
